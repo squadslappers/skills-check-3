@@ -12,11 +12,11 @@ class Nav extends Component{
     render(){
         console.log(this.props)
         return(
-            <div>
+            <div id='nav-main'>
+                <h1>{this.props.id.username}</h1>
                 <Link to='/dashboard'>Dashboard</Link>
                 <Link to='/new'>New Post</Link>
                 <Link to='/'>Logout</Link>
-                {/* {this.props.user.username[1]} */} */}
             </div>
         )
     }

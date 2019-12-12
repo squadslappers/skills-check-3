@@ -33,7 +33,7 @@ class Auth extends Component{
 
     handleLogin=()=>{
         const {username, password} = this.state;
-        console.log(`${username}, ${password}`)
+        // console.log(`${username}, ${password}`)
         axios
             .post('/api/login', {username, password})
             .then(res => {
@@ -45,27 +45,38 @@ class Auth extends Component{
 
     render(){
         return(
-            <div>
-                <input
-                    maxLength='20'
-                    placeholder='Enter Username'
-                    name='username'
-                    onChange={(event) => this.handleInput(event)}
-                    />
-                <input
-                    maxLength='20'
-                    placeholder='Enter Password'
-                    name='password'
-                    onChange={(event) => this.handleInput(event)}
-                    />
-                <button
-                    onClick={this.handleLogin}>
-                    Login
-                    </button>
-                <button
-                    // onClick={this.handleTest}
-                    onClick={this.handleRegister}>
-                    Register</button>
+            <div id = 'auth-box'>
+                <p id='helo'>HELO</p>
+                <div className = 'hi'>
+                    <p>Username:</p>
+                    <input
+                        maxLength='20'
+                        placeholder='Enter Username'
+                        name='username'
+                        onChange={(event) => this.handleInput(event)}
+                        />
+                </div>
+                <div className = 'hi'>
+                    <p>Password:</p>
+                    <input
+                        maxLength='20'
+                        placeholder='Enter Password'
+                        name='password'
+                        onChange={(event) => this.handleInput(event)}
+                        />
+                </div>
+                <div id='buttons'>
+                    <button
+                        className='button'
+                        onClick={this.handleLogin}>
+                        Login
+                        </button>
+                    <button
+                        className='button'
+                        // onClick={this.handleTest}
+                        onClick={this.handleRegister}>
+                        Register</button>
+                </div>
             </div>
         )
     }

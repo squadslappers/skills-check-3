@@ -1,34 +1,39 @@
-const initialState = {
-    user: {}
-}
+import React, {Component} from 'react';
+import axios from 'axios';
+import {connect} from 'react-redux';
+import PostDisplay from './PostDisplay';
 
-const GET_USER = 'GET_USER';
-const LOGOUT = 'LOGOUT';
+class Dashboard extends Component {
+    constructor(){
+        super();
+        this.state = {
+            posts: []
+        }
+    }
 
-export function getUser(userObj){
-    return {
-        type: GET_USER,
-        payload: userObj
+    componentDidMount(){
+        axios.get(`/api/posts/${this.props.user.user_id}`).then(res => {
+            this.setState({posts: res.data})
+        })
+        .catch(err => console.log(err))
+    }
+
+    render(){
+        const mappedPosts = this.state.posts.map((post, index) => {
+            return (
+                <PostDisplay key={index} post={post}/>
+            )
+        })
+        return(
+            <div>
+                {mappedPosts}
+            </div>
+        )
     }
 }
 
-export function logout(){
-    return {
-        type: LOGOUT,
-        payload: null
-    }
+const mapStateToProps = (reduxState) => {
+    return reduxState;
 }
 
-export default function reducer(state = initialState, action){
-    const {type, payload} = action;
-    switch(type){
-        case GET_USER:
-            return {...state, user: payload}
-            //{user: {}, user: {user_id: 1, user_email: 'email'}}
-        case LOGOUT:
-            return {...state, user: {}}
-            //return initialState
-        default:
-            return state;
-    }
-};
+export default connect(mapStateToProps)(Dashboard);
